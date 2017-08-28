@@ -1,10 +1,18 @@
 # coding=utf-8
 import numpy as np
 import sys
+import os
 
-rawTrainData = open('train.csv', 'r').read().split('\r\n')
-rawTestData = open('test_X.csv', 'r').read().split('\n')
-output = open(sys.argv[2], 'w')
+rawTrainData = open('data/train.csv', 'r').read().split('\r\n')
+rawTestData = open('data/test_X.csv', 'r').read().split('\n')
+
+# outdir
+outdir = 'model'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+dst = os.path.join(outdir, sys.argv[2])
+output = open(dst, 'w')
+
 thetaOut = open(sys.argv[3], 'w')
 thetaData = open(sys.argv[1], 'r').read().split(',')
 thetaData = thetaData[:-1]

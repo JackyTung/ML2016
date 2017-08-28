@@ -1,1 +1,1 @@
-python2.7 input_small_linear_regression.py theta_30W kaggle_best.csv theta_kaggle_best
+python input_small_linear_regression.py theta_30W kaggle_best.csv theta_kaggle_best
