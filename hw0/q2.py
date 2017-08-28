@@ -1,5 +1,6 @@
 from PIL import Image
 import sys
+import os
 
 im = Image.open(sys.argv[1])
 rgb_im = im.convert('RGB')
@@ -18,5 +19,10 @@ width, height = im.size
 # 		output_image.putpixel((width-w-1, height-h-1), rgb)
 # output_image.save("ans2.png")
 
+outdir = 'model'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+dst = os.path.join(outdir, 'ans2.png')
+
 out = im.transpose(Image.ROTATE_180)
-out.save("ans2.png")
+out.save(dst)

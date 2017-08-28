@@ -1,4 +1,5 @@
 import sys
+import os
 
 args = sys.argv
 
@@ -20,8 +21,12 @@ for i in range(0, len(f)):
 output_list = sorted(output_list)
 print output_list
 
-#write file
-o = open('ans1.txt', 'w')
+#write file, outdir default=model
+outdir = 'model'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+dst = os.path.join(outdir, 'ans1.txt')
+o = open(dst, 'w')
 for i in range(0, len(output_list)-1):
 	o.write(str(output_list[i]) + ',')
 o.write(str(output_list[len(output_list)-1]))
