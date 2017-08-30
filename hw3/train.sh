@@ -1,1 +1,1 @@
-KERAS_BACKEND=tensorflow python2.7 CNN.py $1 $2
+KERAS_BACKEND=tensorflow python CNN.py $1 $2
