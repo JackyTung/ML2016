@@ -3,6 +3,7 @@
 import sys
 import cPickle as pickle
 import numpy as np
+import os
 
 ORDER = 1
 SCALING = False  # feature scaling
@@ -26,7 +27,8 @@ if __name__ == '__main__':
     theta = pickle.load(open(sys.argv[1], "rb"))
 
     # 處理 raw test data
-    rawTestData = open(sys.argv[2], 'r').read().split('\n')[:-1]
+    dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+    rawTestData = open(os.path.join(dataEnv, sys.argv[2]), 'r').read().split('\n')[:-1]
     for i in range(len(rawTestData)):
         rawTestData[i] = rawTestData[i].split(',')
         for j in range(len(rawTestData[i])):
@@ -42,8 +44,11 @@ if __name__ == '__main__':
     # predict
     y_t = predict(theta, X_t)
 
-    # output
-    out = open(sys.argv[3], 'w')
+    # output, default outdir=model
+    outdir = 'model'
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+    out = open(os.path.join(outdir, sys.argv[3]), 'w')
     out.write('id,label\n')
     for i in range(len(y_t)):
         out.write(str(i+1) + ',' + str(y_t[i]) + '\n')

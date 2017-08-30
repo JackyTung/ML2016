@@ -4,12 +4,13 @@ from numpy import zeros, ones, e, log, random, mean, std, clip, array
 import sys
 import time
 import cPickle as pickle
+import os
 
 ORDER = 1                   # order
 LAMBDA = 10                 # regularization rate
 SCALING = False             # feature scaling
 ALPHA = 0.001               # learning rate
-MAX_ITERATION = 100         # max iterations, original=1,000,000
+MAX_ITERATION = 10          # max iterations, original=1,000,000
 TIME_MAX = 60*10-3          # time max (10 mins)
 
 def sigmoid(X):
@@ -115,7 +116,8 @@ def mapTrainOrder(trainData, ORDER):
 
 if __name__ == '__main__':
     # 處理 raw train data
-    rawTrainData = open(sys.argv[1], 'r').read().split('\r\n')[:-1]
+    dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+    rawTrainData = open(os.path.join(dataEnv, sys.argv[1]), 'r').read().split('\r\n')[:-1]
     for i in range(len(rawTrainData)):
         rawTrainData[i] = rawTrainData[i].split(',')
         for j in range(len(rawTrainData[i])):
@@ -133,4 +135,8 @@ if __name__ == '__main__':
     print theta
 
     # 儲存 model
-    pickle.dump(theta, open(sys.argv[2], "wb"), True)
+    outdir = 'model'
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+    dst = os.path.join(outdir, sys.argv[2])    
+    pickle.dump(theta, open(dst, "wb"), True)
