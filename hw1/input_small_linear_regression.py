@@ -3,8 +3,11 @@ import numpy as np
 import sys
 import os
 
-rawTrainData = open('data/train.csv', 'r').read().split('\r\n')
-rawTestData = open('data/test_X.csv', 'r').read().split('\n')
+#read file
+dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+
+rawTrainData = open(os.path.join(dataEnv, 'data', 'train.csv'), 'r').read().split('\r\n')
+rawTestData = open(os.path.join(dataEnv, 'data', 'test_X.csv'), 'r').read().split('\n')
 
 # outdir
 outdir = 'model'
