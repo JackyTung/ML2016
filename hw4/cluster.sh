@@ -1,1 +1,1 @@
-python2.7 word_to_vec.py $1 $2
+python word_to_vec.py $1 $2
