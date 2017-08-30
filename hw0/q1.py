@@ -7,7 +7,12 @@ args = sys.argv
 index = int(args[1])
 
 #read file
-f = open(args[2], 'r').read().split('\n')
+dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+print ('dataEnv: ', dataEnv)
+
+dst = os.path.join(dataEnv, 'data', args[2])
+print ('dst: ', dst)
+f = open(os.path.join(dataEnv, 'data', args[2]), 'r').read().split('\n')
 
 #output list
 output_list = []

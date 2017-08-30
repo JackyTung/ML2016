@@ -2,7 +2,8 @@ from PIL import Image
 import sys
 import os
 
-im = Image.open(sys.argv[1])
+dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+im = Image.open(os.path.join(dataEnv, 'data', sys.argv[1]))
 rgb_im = im.convert('RGB')
 
 #w, h
