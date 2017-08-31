@@ -11,15 +11,24 @@ import time
 import parser as ps
 import numpy as np
 import sys
+import os
 
 nb_classes = 10
 batch_size = 100
-nb_epoch = 350
+nb_epoch = 2 # original=350
 validPercent = 15
 LOAD_FLAG = False
 LOAD_MODEL_FILE = "trained_model"
-MODEL_FILE = sys.argv[2]
-dataPath = sys.argv[1]
+
+# outdir
+outdir = 'model'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+MODEL_FILE = os.path.join(outdir, sys.argv[2])
+
+# dataPath
+dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+dataPath = os.path.join(dataEnv, sys.argv[1])
 
 # slow data
 # labels[0-9][0-499][0-3071]

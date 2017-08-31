@@ -7,11 +7,21 @@ import time
 import parser as ps
 import numpy as np
 import sys
+import os
 
 nb_classes = 10
-out = open(sys.argv[3], 'w')
+
+# outdir
+outdir = 'model'
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+out = open(os.path.join(outdir, sys.argv[3]), 'w')
+
 LOAD_MODEL_FILE = sys.argv[2]
-dataPath = sys.argv[1]
+
+# dataPath
+dataEnv = os.environ.get('GRAPE_DATASET_DIR')
+dataPath = os.path.join(dataEnv, sys.argv[1])
 
 # slow data
 # labels[0-9][0-499][0-3071]
